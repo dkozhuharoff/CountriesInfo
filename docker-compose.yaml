@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  countries_info:
+    build: .
+    image: countries_info
+    container_name: countries-info
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      - countries-info
+    depends_on:
+      - cassandra
+
+  cassandra:
+    image: "cassandra"
+    container_name: cassandra
+    restart: always
+    ports:
+      - "9042:9042"
+    networks:
+      - countries-info
+
+networks:
+  countries-info:
+    name: countries-info
+    external: true
